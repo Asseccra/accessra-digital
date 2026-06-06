@@ -69,6 +69,7 @@ export default function App() {
   useEffect(() => {
     let unsubscribeOrders = () => {};
     let unsubscribeLogs = () => {};
+    let unsubscribeProducts = () => {};
 
     const unsubscribeAuth = onAuthStateChanged(auth, async (firebaseUser) => {
       if (firebaseUser) {
@@ -155,6 +156,23 @@ export default function App() {
             console.error('Firestore error:', err);
           });
 
+          // Listen for products changes
+          const productsRef = collection(db, 'products');
+          unsubscribeProducts = onSnapshot(productsRef, (snapshot) => {
+           const loadedProducts: Product[] = [];
+           snapshot.forEach((d) => {
+            loadedProducts.push({
+              id: d.id,
+              ...(d.data() as Omit<Product, 'id'>),
+              } as Product);
+            });
+            setDynamicProducts(
+           loadedProducts.length > 0
+           ? loadedProducts
+           : PRODUCTS_CATALOG
+          );
+        });
+
         } catch (err) {
           console.error('Firestore error:', err);
         }
@@ -166,9 +184,10 @@ export default function App() {
     });
 
     return () => {
-      unsubscribeAuth();
-      unsubscribeOrders();
-      unsubscribeLogs();
+    unsubscribeAuth();
+    unsubscribeOrders();
+    unsubscribeLogs();
+    unsubscribeProducts();
     };
   }, []);
 
