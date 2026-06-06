@@ -1,0 +1,6 @@
+{
+  "name": "Accessra Digital",
+  "description": "Accessra Digital is a futuristic premium marketplace for game vouchers, phone credit, data bundles, e-wallet top-ups, streaming accounts, software licenses, gift cards, premium app subscriptions, and social media tools, powered by Gemini AI recommendations and features secure, real-time transaction processing.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

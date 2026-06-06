@@ -1,0 +1,72 @@
+{
+  "entities": {
+    "UserProfile": {
+      "title": "UserProfile",
+      "description": "User account profile with tier, cashback points and subscription data.",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "email": { "type": "string" },
+        "displayName": { "type": "string" },
+        "photoURL": { "type": "string" },
+        "phoneNumber": { "type": "string" },
+        "level": { "type": "string", "enum": ["Bronze", "Silver", "Gold", "Platinum", "Infinite Cyber"] },
+        "experiencePoints": { "type": "integer" },
+        "cashbackPoints": { "type": "integer" },
+        "referralCode": { "type": "string" },
+        "referredBy": { "type": "string" },
+        "joinedAt": { "type": "string", "format": "date-time" },
+        "subscriptionMonths": { "type": "integer" }
+      },
+      "required": ["uid", "email", "displayName", "level", "experiencePoints", "cashbackPoints", "referralCode", "joinedAt"]
+    },
+    "Order": {
+      "title": "Order",
+      "description": "Purchase transaction details.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "productId": { "type": "string" },
+        "productName": { "type": "string" },
+        "productType": { "type": "string" },
+        "targetAccount": { "type": "string" },
+        "price": { "type": "integer" },
+        "paymentMethod": { "type": "string" },
+        "paymentStatus": { "type": "string", "enum": ["unpaid", "paid", "failed"] },
+        "orderStatus": { "type": "string", "enum": ["processing", "completed", "failed"] },
+        "cashbackEarned": { "type": "integer" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "serialNumber": { "type": "string" },
+        "invoiceNumber": { "type": "string" }
+      },
+      "required": ["id", "userId", "productId", "productName", "productType", "targetAccount", "price", "paymentMethod", "paymentStatus", "orderStatus", "cashbackEarned", "createdAt", "invoiceNumber"]
+    },
+    "ActivityLog": {
+      "title": "ActivityLog",
+      "description": "Trace logging entries for user actions.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "action": { "type": "string" },
+        "timestamp": { "type": "string", "format": "date-time" },
+        "details": { "type": "string" }
+      },
+      "required": ["id", "action", "timestamp", "details"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "UserProfile",
+      "description": "Profile data for users."
+    },
+    "/users/{userId}/orders/{orderId}": {
+      "schema": "Order",
+      "description": "Individual payment purchase receipts for each user."
+    },
+    "/users/{userId}/activityLogs/{logId}": {
+      "schema": "ActivityLog",
+      "description": "Action traceability audits logs for this user."
+    }
+  }
+}

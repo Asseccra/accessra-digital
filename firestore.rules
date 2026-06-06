@@ -1,0 +1,87 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Global Safety Net
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Helper functions
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return isSignedIn() && request.auth.uid == userId;
+    }
+
+    function isValidId(id) {
+      return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    function incoming() {
+      return request.resource.data;
+    }
+
+    function existing() {
+      return resource.data;
+    }
+
+    function isValidUserProfile(data) {
+      return data.uid is string 
+        && data.uid.size() <= 128
+        && data.email is string
+        && data.displayName is string
+        && data.displayName.size() <= 200
+        && data.level in ['Bronze', 'Silver', 'Gold', 'Platinum', 'Infinite Cyber']
+        && data.experiencePoints is int
+        && data.cashbackPoints is int;
+    }
+
+    function isValidOrder(data) {
+      return data.id is string
+        && data.userId is string
+        && data.productId is string
+        && data.productName is string
+        && data.productType is string
+        && data.targetAccount is string
+        && data.price is int
+        && data.paymentMethod is string
+        && data.paymentStatus is string
+        && data.orderStatus is string
+        && data.cashbackEarned is int
+        && data.invoiceNumber is string;
+    }
+
+    function isValidActivityLog(data) {
+      return data.id is string
+        && data.action is string
+        && data.details is string;
+    }
+
+    // Collection security rules
+    match /users/{userId} {
+      allow get: if isOwner(userId);
+      allow create: if isOwner(userId) && isValidUserProfile(incoming());
+      allow update: if isOwner(userId) && isValidUserProfile(incoming());
+      allow delete: if isOwner(userId);
+
+      // Sub-collection orders
+      match /orders/{orderId} {
+        allow list, get: if isOwner(userId);
+        allow create: if isOwner(userId) && isValidOrder(incoming());
+        allow update: if isOwner(userId) && isValidOrder(incoming());
+        allow delete: if isOwner(userId);
+      }
+
+      // Sub-collection activityLogs
+      match /activityLogs/{logId} {
+        allow list, get: if isOwner(userId);
+        allow create: if isOwner(userId) && isValidActivityLog(incoming());
+        allow update: if isOwner(userId) && isValidActivityLog(incoming());
+        allow delete: if isOwner(userId);
+      }
+    }
+  }
+}
