@@ -33,25 +33,29 @@ export default function ProductDetailModal({
   };
 
   // Basic target input validations based on digital category
-  const handleSubmitPurchase = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!targetAccount.trim()) {
-      setErrorInput('Harap isi data tujuan siber pengiriman dengan benar.');
+ const handleSubmitPurchase = (e: React.FormEvent) => {
+  e.preventDefault();
+
+  if (!targetAccount.trim()) {
+    setErrorInput('Harap isi data tujuan terlebih dahulu.');
+    return;
+  }
+
+  if (
+    product.type === 'pulsa' ||
+    product.type === 'paket_data' ||
+    product.type === 'ewallet'
+  ) {
+    const isPhone = /^[0-9+]{9,15}$/.test(targetAccount.replace(/\s/g, ''));
+    if (!isPhone) {
+      setErrorInput('Format nomor ponsel salah. Silakan masukkan angka 9–15 digit.');
       return;
     }
-    
-    // Validating Phone / Game ID format
-    if (product.type === 'pulsa' || product.type === 'paket_data' || product.type === 'ewallet') {
-      const isPhone = /^[0-9+]{9,15}$/.test(targetAccount.replace(/\s/g, ''));
-      if (!isPhone) {
-        setErrorInput('Format nomor ponsel salah. Silahkan masukkan angka 9-15 digit.');
-        return;
-      }
-    }
+  }
 
-    setErrorInput('');
-    onInitiatePurchase(product, targetAccount);
-  };
+  setErrorInput('');
+  onInitiatePurchase(product, targetAccount);
+};
 
   return (
     <div className="fixed inset-0 z-40 flex items-center justify-center p-4">
