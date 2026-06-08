@@ -287,7 +287,7 @@ export default function App() {
   // Initiate dynamic checkout payments
   const handleInitiatePurchase = (product: Product, selectedTarget: string) => {
     setTargetAccount(selectedTarget);
-    setCheckoutProduct(product);
+    setSelectedProduct(product);
     setSelectedProduct(null); // Close detail modal
     handleAddActivity('Mulai Checkout', `Membeli ${product.name} untuk target ${selectedTarget}`);
   };
@@ -814,7 +814,7 @@ export default function App() {
                         <button
                           onClick={() => {
                             setTargetAccount('');
-                            setCheckoutProduct(product);
+                            setSelectedProduct(product);
                           }}
                           className="w-full py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-700 hover:bg-blue-600 hover:text-white hover:border-blue-600 text-xs font-bold transition-all cursor-pointer flex items-center justify-center gap-1 shadow-sm"
                         >
