@@ -292,10 +292,13 @@ export default function App() {
   setTimeout(() => {
     setSelectedProduct(null);
   }, 100);
-  
-    // Close detail modal
-    handleAddActivity('Mulai Checkout', `Membeli ${product.name} untuk target ${selectedTarget}`);
-  };
+
+  handleAddActivity(
+    'Mulai Checkout',
+    `Membeli ${product.name} untuk target ${selectedTarget}`
+  );
+};
+    
 
   // Confirm payment succeed trigger
   const handlePaymentSuccess = async (finalPrice: number, methodUsed: PaymentMethodType, couponApplied?: string) => {
