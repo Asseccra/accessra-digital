@@ -843,8 +843,8 @@ export default function App() {
                 onToggleWishlist={handleToggleWishlist}
                 onSelectProduct={setSelectedProduct}
                 onFastBuy={(product) => {
-                  setTargetAccount('');
-                  setCheckoutProduct(product);
+                  setSelectedProduct(product);
+    
                 }}
               />
             </motion.div>
