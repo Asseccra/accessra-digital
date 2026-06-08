@@ -432,9 +432,10 @@ export default function App() {
   // Filtering products list based on category & search input
   const filteredProducts = dynamicProducts.filter((p) => {
     const matchesCategory = selectedCategory ? p.type === selectedCategory : true;
-    const matchesSearch = p.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
-                          p.categoryName.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                          p.description.toLowerCase().includes(searchQuery.toLowerCase());
+    const matchesSearch = 
+        String(p.name || "").toLowerCase().includes(searchQuery.toLowerCase()) ||
+        String(p.categoryName || "").toLowerCase().includes(searchQuery.toLowerCase()) ||
+        String(p.description || "").toLowerCase().includes(searchQuery.toLowerCase());
     return matchesCategory && matchesSearch;
   });
 
