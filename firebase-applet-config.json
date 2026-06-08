@@ -1,10 +1,9 @@
 {
-  "projectId": "bustling-hue-mr4g1",
-  "appId": "1:1038750019318:web:48033fe3d7fd94233a86d7",
-  "apiKey": "AIzaSyCkkAfrxaTfz1TadpkBbyzs1j7jr7yBlEI",
-  "authDomain": "bustling-hue-mr4g1.firebaseapp.com",
-  "firestoreDatabaseId": "ai-studio-d60028aa-1abb-4b68-aa3d-0e6dd59d7530",
-  "storageBucket": "bustling-hue-mr4g1.firebasestorage.app",
-  "messagingSenderId": "1038750019318",
-  "measurementId": ""
+  "apiKey": "AIzaSyC5HVVNvGrkgpFVqk27Fe3_uh5Jy7kYz7s",
+  "authDomain": "accessra-bfe6c.firebaseapp.com",
+  "projectId": "accessra-bfe6c",
+  "storageBucket": "accessra-bfe6c.firebasestorage.app",
+  "messagingSenderId": "918645087862",
+  "appId": "1:918645087862:web:17ba9a9a6fd802bccc0957",
+  "measurementId": "G-B3EL6HL5FP"
 }

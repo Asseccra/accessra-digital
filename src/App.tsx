@@ -166,11 +166,7 @@ export default function App() {
               ...(d.data() as Omit<Product, 'id'>),
               } as Product);
             });
-            setDynamicProducts(
-           loadedProducts.length > 0
-           ? loadedProducts
-           : PRODUCTS_CATALOG
-          );
+            setDynamicProducts(loadedProducts.length > 0 ? loadedProducts : PRODUCTS_CATALOG);
         });
 
         } catch (err) {
