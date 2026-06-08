@@ -28,27 +28,36 @@ export default function Auth({ darkMode, onLoginSuccess }: AuthProps) {
   const [forgotEmail, setForgotEmail] = useState('');
 
   const saveUserToFirestore = async (user: any, fallbackEmail = '') => {
-    const emailPrefix = user.email?.split('@')[0] || 'User';
-    const displayName =
-      user.displayName ||
-      emailPrefix.charAt(0).toUpperCase() + emailPrefix.slice(1);
+  const emailPrefix = user.email?.split('@')[0] || 'User';
+  const displayName =
+    user.displayName ||
+    emailPrefix.charAt(0).toUpperCase() + emailPrefix.slice(1);
 
-    await setDoc(
-      doc(db, "users", user.uid),
-      {
-        uid: user.uid,
-        email: user.email || fallbackEmail,
-        name: displayName,
-        phone: "",
-        balance: 0,
-        points: 0,
-        role: "user",
-        active: true,
-        createdAt: new Date().toISOString()
-      },
-      { merge: true }
-    );
-  };
+  await setDoc(
+    doc(db, "users", user.uid),
+    {
+      uid: user.uid,
+      email: user.email || fallbackEmail,
+      name: displayName,
+      displayName: displayName,
+      phone: "",
+      balance: 0,
+      points: 0,
+      cashbackPoints: 0,
+      experiencePoints: 0,
+      level: "Bronze",
+      photoURL:
+        user.photoURL ||
+        "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&q=80&w=150",
+      referralCode: `${emailPrefix.toUpperCase()}99XC`,
+      role: "user",
+      active: true,
+      joinedAt: new Date().toISOString(),
+      createdAt: new Date().toISOString()
+    },
+    { merge: true }
+  );
+};
 
   const handleGoogleLogin = async () => {
     setError('');
