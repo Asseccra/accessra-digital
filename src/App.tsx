@@ -342,6 +342,17 @@ export default function App() {
 
     try {
       await setDoc(doc(db, 'users', user.uid, 'orders', orderId), newOrder);
+
+await setDoc(doc(db, 'orders', orderId), {
+  ...newOrder,
+  customerName: user.name || user.email || "Guest",
+  customerEmail: user.email || "guest",
+  productTitle: checkoutProduct.name || checkoutProduct.title,
+  amount: finalPrice,
+  paymentGateway: methodUsed,
+  referenceId: orderId,
+  date: new Date().toISOString()
+});
     } catch (error) {
       console.error('Firestore error:', error);
     }
