@@ -417,21 +417,23 @@ export default function App() {
   };
 
   // Categories translation dictionary
-  const categoriesList = [
+const categoriesList = [
   { value: null, label: "Semua Kategori" },
   { value: "voucher_game", label: "Voucher Game" },
-  { value: "pulsa", label: "Pulsa" },
+  { value: "pulsa_seluler", label: "Pulsa" },
   { value: "paket_data", label: "Paket Data" },
-  { value: "ewallet", label: "E-Wallet" },
-  { value: "streaming", label: "Streaming" },
-  { value: "software", label: "Software" },
-  { value: "giftcard", label: "Gift Card" },
-  { value: "social_media", label: "Sosmed Booster" }
+  { value: "e_wallet_refill", label: "E-Wallet" },
+  { value: "media_streaming", label: "Streaming" },
+  { value: "software_lisensi", label: "Software" },
+  { value: "giftcard_voucher", label: "Gift Card" },
+  { value: "sosial_media", label: "Sosmed Booster" }
 ];
 
   // Filtering products list based on category & search input
   const filteredProducts = dynamicProducts.filter((p) => {
-    const matchesCategory = selectedCategory ? p.type === selectedCategory : true;
+    const matchesCategory = selectedCategory
+  ? p.type === selectedCategory || p.category === selectedCategory
+  : true;
     const matchesSearch = 
         String(p.name || "").toLowerCase().includes(searchQuery.toLowerCase()) ||
         String(p.categoryName || "").toLowerCase().includes(searchQuery.toLowerCase()) ||
