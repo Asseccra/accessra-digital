@@ -418,16 +418,16 @@ export default function App() {
 
   // Categories translation dictionary
   const categoriesList = [
-    { value: null, label: 'Semua Kategori' },
-    { value: 'voucher_game', label: 'Voucher Game' },
-    { value: 'pulsa', label: 'Pulsa' },
-    { value: 'paket_data', label: 'Paket Data' },
-    { value: 'ewallet', label: 'E-Wallet' },
-    { value: 'streaming', label: 'Streaming' },
-    { value: 'software', label: 'Software' },
-    { value: 'giftcard', label: 'Gift Card' },
-    { value: 'social_media', label: 'Sosmed Booster' }
-  ];
+  { value: null, label: "Semua Kategori" },
+  { value: "voucher_game", label: "Voucher Game" },
+  { value: "pulsa", label: "Pulsa" },
+  { value: "paket_data", label: "Paket Data" },
+  { value: "ewallet", label: "E-Wallet" },
+  { value: "streaming", label: "Streaming" },
+  { value: "software", label: "Software" },
+  { value: "giftcard", label: "Gift Card" },
+  { value: "social_media", label: "Sosmed Booster" }
+];
 
   // Filtering products list based on category & search input
   const filteredProducts = dynamicProducts.filter((p) => {
